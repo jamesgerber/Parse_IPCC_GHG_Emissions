@@ -121,7 +121,7 @@ plot(yearvect,cumsum(IndEmissions)+sum(Y(1:4,:),1),'k--')
 plot(yearvect,cumsum(TransEmissions)+sum(Y(1:5,:),1),'k--')
 legend('AFOLU','Buildings','Electricity','Other','Industry','Transportation')
 
-outputfig('Force',['figures/CountrySectorTimeSeries/SectorTimeSeries_' RegionName]);
+%outputfig('Force',['figures/CountrySectorTimeSeries/SectorTimeSeries_' RegionName]);
 
 %%
 figure,
@@ -159,7 +159,7 @@ for j=1:32
 end
 set(hax,'Visible','off')
 
-outputfig('Force',['figures/CountrySectorTimeSeries/SectorTimeSeriesWithNums_' RegionName]);
+%outputfig('Force',['figures/CountrySectorTimeSeries/SectorTimeSeriesWithNums_' RegionName]);
 
 
 %%

@@ -1,4 +1,4 @@
-function [M,rows,cols,A,B,OE,IND,T,E]=AllocateEmissionsNFIRevG(ISO,YYYY)
+function [M,rows,cols,A,B,OE,IND,T,E]=AllocateEmissionsNFIRevG(ISO,YYYY);
 % AllocateEmissionsNFI "no F***ing indirect"
 %
 % [M,rows,cols,A,B,OE,IND,T,E]=AllocateEmissionsNFIRevG(ISO,YYYY)
@@ -19,13 +19,10 @@ end
 
 persistent a b c d ee
 if isempty(c)
-%    a=readgenericcsv('essd_ghg_data_datasheet.txt',1,tab);
-%    b=readgenericcsv('essd_lulucf_data_datasheet.txt',1,tab);
-    c=readgenericcsv('essd_ghg_data_gwp100_datasheet.txt',1,tab);
-    d=readgenericcsv('AR6-Emissions-trends-and-drivers/JamieWorksWithThis/data_indirect_CO2_countries.txt',1,tab,1)
-
-
-
+    ParseGHGDataConstantsDefaults
+    datadir=DataFilesLocation;
+    c=readgenericcsv([datadir 'essd_ghg_data_gwp100_datasheet.txt'],1,tab);
+    d=readgenericcsv([datadir 'data_indirect_CO2_countries.txt'],1,tab,1)
 end
 
 
@@ -40,8 +37,7 @@ InMinxNotEdgarList={
     'VIR',    'WLF'};
 
 
-%a1=subsetofstructureofvectors(a,find(a.year==YYYY));
-%b1=subsetofstructureofvectors(b,find(b.year==YYYY));
+
 c1=subsetofstructureofvectors(c,find(c.year==YYYY));
 d1=subsetofstructureofvectors(d,find(d.year==YYYY));
 

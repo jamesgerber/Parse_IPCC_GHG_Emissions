@@ -1,14 +1,21 @@
 function [CO2eq,rawgas]=getEdgarData(ISO,gas,subsector,YYYY);
-
+% getEdgarData - get data from EDGAR70 Database
+%
+% Syntax
+%     [CO2eq,rawgas]=getEdgarData(ISO,gas,subsector,YYYY);
 
 persistent   EdgarEmissions_CO2_IPCC1996 EdgarEmissions_CO2_IPCC2006 EdgarEmissions_CO2_CountryTot ...
     EdgarEmissions_CH4_IPCC1996 EdgarEmissions_CH4_IPCC2006 EdgarEmissions_CH4_CountryTot ...
     EdgarEmissions_N2O_IPCC1996 EdgarEmissions_N2O_IPCC2006 EdgarEmissions_N2O_CountryTot ...
     EdgarEmissions_Fgas_IPCC1996 EdgarEmissions_Fgas_IPCC2006 EdgarEmissions_Fgas_CountryTot
 
+
+
 if isempty(EdgarEmissions_CO2_IPCC1996)
-    
-    datadir='/Users/jsgerber/sandbox/jsg203_ClimateSolutionsExplorer/data';
+    ParseGHGDataConstantsDefaults
+
+    %   datadir='/Users/jsgerber/sandbox/jsg203_ClimateSolutionsExplorer/data';
+    datadir=DataFilesLocation;
     load([datadir '/EDGAR70/individualsheets/EdgarV70.mat'])
 end
 
@@ -35,7 +42,7 @@ switch gas
         idx1996=strmatch(subsector,EdgarEmissions_CH4_IPCC1996.ipcc_code_1996_for_standard_report_name);
         idx2006=strmatch(subsector,EdgarEmissions_CH4_IPCC2006.ipcc_code_2006_for_standard_report_name);
         
-        if ~isempty(idx1996) & ~isempty(idx2006)
+        if ~isempty(idx1996) && ~isempty(idx2006)
             error(' subsectors overlap - ambiguous')
         end
         
@@ -114,7 +121,7 @@ switch gas
         idx1996=strmatch(subsector,EdgarEmissions_N2O_IPCC1996.ipcc_code_1996_for_standard_report_name);
         idx2006=strmatch(subsector,EdgarEmissions_N2O_IPCC2006.ipcc_code_2006_for_standard_report_name);
         
-        if ~isempty(idx1996) & ~isempty(idx2006)
+        if ~isempty(idx1996) && ~isempty(idx2006)
             error(' subsectors overlap - ambiguous')
         end
         
