@@ -10,7 +10,8 @@ warning('swapping in just a few countries as a test')
 pause(1)
 ISOlist={'USA','CAN','CHN','IND'}
 
-
+warndlg('THIS DOESNT WORK IN OCTAVE - NEEDS A WORKAROUND FOR GEOTIFFREAD')
+pause(10)
 
 CH4Fugitiveemissionsmap=datablank;
 CH4Solidemissionsmap=datablank;
