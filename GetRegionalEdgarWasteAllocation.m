@@ -4,7 +4,11 @@ function   [CH4BioTreatSW,CH4Wastewater,CH4SolidWaste,CH4Incineration,...
 
 persistent c
 if isempty(c)
-    c=readgenericcsv('essd_ghg_data_gwp100_datasheet.txt',1,tab);
+    
+     ParseGHGDataConstantsDefaults
+    datadir=DataFilesLocation;
+    c=readgenericcsv([datadir 'essd_ghg_data_gwp100_datasheet.txt'],1,tab);
+  
 end
 
 

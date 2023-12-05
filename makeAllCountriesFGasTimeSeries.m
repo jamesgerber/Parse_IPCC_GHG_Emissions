@@ -1,43 +1,48 @@
 
+% not sure if this is necessary ... but it can't hurt
 ParseGHGDataConstantsDefaults
 
 warning('this code is really slow - not very efficient at all')
-pause(1)
-
-geo=load([GADMFilesLocation 'gadm41_level0raster5minVer1.mat'])
-ISOlist=geo.gadm0codes;
-
-CH4Fugitiveemissionsmap=datablank;
-CH4Solidemissionsmap=datablank;
-CH4WWemissionsmap=datablank;
-CH4WW_PercentPerYearChange_map=datablank;
-CH4WW_percapita_PercentPerYearChange_map=datablank;
-CH4WW_percapita2019=datablank;
 
 
+% call a script to get a full list of countries (this corrects an error
+% that James had noticed in late Nov 2023 (viz. that GADM countries don't
+% overlap with Minx countries))
+ISOlist=ParseGHGCountriesList;
+
+%ISOlist=ISOlist(1:10)
+% Call AllocateEmissions to get 'rows' and 'cols'.  This is better than
+% hard coding here because code won't break if we ever change rows/cols
+% into M.
 [M, rows, cols, A, B, OE, IND, T]=AllocateEmissionsNFIRevG('USA',2019);
-icf=strmatch('otherenergy_coalfugitive',rows);
-iof=strmatch('otherenergy_oilfugitive',rows);
-iburn=strmatch('industry_burningtreatingsolidwaste',rows);
-itreat=strmatch('industry_solidwastedisposal',rows);
-iwastewater=strmatch('industry_wastewatertreatment',rows);
+
+% M is a big matrix ... rows are sectors, cols are gases.  It's all just
+% bookkeeping from here.
+
+
+%%% if you wanted to just limit to sectors, you'd need code like this:
+%icf=strmatch('otherenergy_coalfugitive',rows);
+%iof=strmatch('otherenergy_oilfugitive',rows);
+%iburn=strmatch('industry_burningtreatingsolidwaste',rows);
+%itreat=strmatch('industry_solidwastedisposal',rows);
+%iwastewater=strmatch('industry_wastewatertreatment',rows);
 
 
 %%
 yrvect=1970:2019;
 for j=1:numel(ISOlist)
-    
+    ISO=ISOlist{j};
+
     for jyr=1:numel(yrvect);
         YYYY=yrvect(jyr);
-        ISO=ISOlist{j}
-        
+
         [M, rows, cols, A, B, OE, IND, T]=AllocateEmissionsNFIRevG(ISO,YYYY);
-        
+
         FgasEmissions(jyr,j)=sum(sum(M(:,13:16)));
         TotEmissions(jyr,j)=sum(sum(M(:,:)));
-                
+
     end
-    
+
 end
 figure,plot(yrvect,sum(FgasEmissions,2)/1e6)
 grid on

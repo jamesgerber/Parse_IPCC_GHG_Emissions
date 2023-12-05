@@ -10,8 +10,9 @@ warning('swapping in just a few countries as a test')
 pause(1)
 ISOlist={'USA','CAN','CHN','IND'}
 
-warndlg('THIS DOESNT WORK IN OCTAVE - NEEDS A WORKAROUND FOR GEOTIFFREAD')
-pause(.10)
+if isoctave==1
+error('THIS DOESNT WORK IN OCTAVE - NEEDS A WORKAROUND FOR GEOTIFFREAD')
+end
 
 CH4Fugitiveemissionsmap=datablank;
 CH4Solidemissionsmap=datablank;
@@ -29,7 +30,7 @@ itreat=strmatch('industry_solidwastedisposal',rows);
 iwastewater=strmatch('industry_wastewatertreatment',rows);
 
 
-makemaps=1;
+makemaps=0;
 %%
 if makemaps==1
     
