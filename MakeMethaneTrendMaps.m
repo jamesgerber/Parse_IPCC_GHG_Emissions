@@ -11,7 +11,7 @@ pause(1)
 ISOlist={'USA','CAN','CHN','IND'}
 
 warndlg('THIS DOESNT WORK IN OCTAVE - NEEDS A WORKAROUND FOR GEOTIFFREAD')
-pause(10)
+pause(.10)
 
 CH4Fugitiveemissionsmap=datablank;
 CH4Solidemissionsmap=datablank;
@@ -29,8 +29,8 @@ itreat=strmatch('industry_solidwastedisposal',rows);
 iwastewater=strmatch('industry_wastewatertreatment',rows);
 
 
-makemaps=0;
-
+makemaps=1;
+%%
 if makemaps==1
     
     for j=1:length(ISOlist)
@@ -77,8 +77,8 @@ if makemaps==1
     maketransparentoceans_noant_nogridlinesnostates_removeislands('tmp.png',['RatioSolidToWasteWater'],.9*[1 1 1]);
     
 end
-
-makethisone=0;
+%%
+makethisone=1;
 
 if makethisone==1
 

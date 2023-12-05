@@ -13,16 +13,40 @@ if iscell(ISO)
     [M,rows,cols,A,B,OE,IND,T,E]=AllocateEmissionsNFIRevG(ISO,YYYY);
     Mkeep=Mkeep+M;
     end
+    M=Mkeep;
+    return;
 end
 
 
 
 persistent a b c d ee
+%persistent sshash_chem sshash_metals sshash_nonres sshash_otheren sshash_otherind sshash_othertrans sshash_rail sshash_residential sshash_road
+
+
 if isempty(c)
     ParseGHGDataConstantsDefaults
     datadir=DataFilesLocation;
     c=readgenericcsv([datadir 'essd_ghg_data_gwp100_datasheet.txt'],1,tab);
     d=readgenericcsv([datadir 'data_indirect_CO2_countries.txt'],1,tab,1)
+
+subsectorlist=unique(d.subsector_title);
+
+% sshash_chem=uglyhash('Chemicals');
+% sshash_metals=uglyhash('Metals');
+% sshash_nonres=uglyhash('Non-residential');
+% sshash_otheren=uglyhash('Other (energy systems)');
+% sshash_otherind=uglyhash('Other (industry)');
+% sshash_othertrans=uglyhash('Other (transport)');
+% sshash_rail=uglyhash('Rail');
+% sshash_residential=uglyhash('Residential');
+% sshash_road=uglyhash('Road');
+% 
+% for j=1:numel(d.subsector_title)
+%     d.subsector_title_hash(j)=uglyhash(d.subsector_title{j});
+% end
+
+
+
 end
 
 
@@ -79,6 +103,33 @@ IE.I.Other=d1.CO2_indirect(strmatch('Other (industry)',d1.subsector_title));
 IE.T.Other=d1.CO2_indirect(strmatch('Other (transport)',d1.subsector_title));
 IE.T.Rail=d1.CO2_indirect(strmatch('Rail',d1.subsector_title));
 IE.T.Road=d1.CO2_indirect(strmatch('Road',d1.subsector_title));
+% 
+
+
+% IE.B.NonRes=d1.CO2_indirect(find(sshash_nonres==d1.subsector_title_hash));
+% IE.B.Res=d1.CO2_indirect(find(sshash_residential==d1.subsector_title_hash));
+% IE.E.Other=sum(d1.CO2_indirect(find(sshash_otheren==d1.subsector_title_hash)));
+% IE.I.Chem=d1.CO2_indirect(sshash_chem==d1.subsector_title_hash);
+% IE.I.Metals=d1.CO2_indirect(sshash_metals==d1.subsector_title_hash);
+% IE.I.Other=d1.CO2_indirect(sshash_otherind==d1.subsector_title_hash);
+% IE.T.Other=d1.CO2_indirect(sshash_othertrans==d1.subsector_title_hash);
+% IE.T.Rail=d1.CO2_indirect(sshash_rail==d1.subsector_title_hash);
+% IE.T.Road=d1.CO2_indirect(sshash_road==d1.subsector_title_hash);
+
+
+% sshash_chem=uglyhash('Chemicals');
+% sshash_metals=uglyhash('Metals');
+% sshash_nonres=uglyhash('Non-residential');
+% sshash_otheren=uglyhash('Other (energy systems)');
+% sshash_otherind=uglyhash('Other (industry)');
+% sshash_othertrans=uglyhash('Other (transport)');
+% sshash_rail=uglyhash('Rail');
+% sshash_residential=uglyhash('Residential');
+% sshash_road=uglyhash('Road');
+
+
+
+
 
 
 % need to make sure none of these are zero
