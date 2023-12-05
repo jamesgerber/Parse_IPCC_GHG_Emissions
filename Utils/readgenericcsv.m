@@ -12,7 +12,7 @@ function DS=ReadGenericCSV(FileName,HeaderLines,Delimiter,AttemptNums,headerline
 %
 %     DS=ReadGenericCSV(FileName,HeaderLines,Delimiter,AttemptNums);
 %
-%     DS=ReadGenericCSV(FileName,HeaderLines,Delimiter,AttemptNums,headerline);
+%     DS=readgenericcsv(FileName,HeaderLines,Delimiter,AttemptNums,headerline);
 %
 %   ReadGenericCSV will read in a CSV file, and make a structure,
 %   where each field of the structure corresponds to one of the columns.
@@ -185,11 +185,11 @@ if AttemptNums==0
                 NumericFlag=0;
             end
             
-            try
-                % deal with this problem: "﻿" at beginning of .csv files
-                ThisName=removeasciiturds(ThisName);
-            ThisName=makesafestring(ThisName); % sometimes leaves blanks up front   
-            end
+            
+            % deal with this problem: "﻿" at beginning of .csv files
+            ThisName=removeasciiturds(ThisName);
+            ThisName=makesafestring(ThisName); % sometimes leaves blanks up front
+         
             
             if NumericFlag==1
                 DS=setfield(DS,ThisName,NumVector);
