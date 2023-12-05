@@ -27,7 +27,7 @@ if isempty(c)
     ParseGHGDataConstantsDefaults
     datadir=DataFilesLocation;
     c=readgenericcsv([datadir 'essd_ghg_data_gwp100_datasheet.txt'],1,tab);
-    d=readgenericcsv([datadir 'data_indirect_CO2_countries.txt'],1,tab,1)
+    d=readgenericcsv([datadir 'data_indirect_CO2_countries.txt'],1,tab,1);
 
 subsectorlist=unique(d.subsector_title);
 
@@ -40,7 +40,7 @@ subsectorlist=unique(d.subsector_title);
 % sshash_rail=uglyhash('Rail');
 % sshash_residential=uglyhash('Residential');
 % sshash_road=uglyhash('Road');
-% 
+%
 % for j=1:numel(d.subsector_title)
 %     d.subsector_title_hash(j)=uglyhash(d.subsector_title{j});
 % end
@@ -103,7 +103,7 @@ IE.I.Other=d1.CO2_indirect(strmatch('Other (industry)',d1.subsector_title));
 IE.T.Other=d1.CO2_indirect(strmatch('Other (transport)',d1.subsector_title));
 IE.T.Rail=d1.CO2_indirect(strmatch('Rail',d1.subsector_title));
 IE.T.Road=d1.CO2_indirect(strmatch('Road',d1.subsector_title));
-% 
+%
 
 
 % IE.B.NonRes=d1.CO2_indirect(find(sshash_nonres==d1.subsector_title_hash));
@@ -467,10 +467,10 @@ industry.oth.Fgas=c1.Fgas(idx);
 % industry.wa.CH4=c1.CH4(idx);
 % industry.wa.N2O=c1.N2O(idx);
 % industry.wa.Fgas=c1.Fgas(idx);
-% 
+%
 
 % Here in Rev G, we are breaking out Industry;waste into three subsectors.
-% 
+%
 
 %[CO2eqSolidWaste,SolidWaste]=getEdgarData(ISO,'CO2','Incineration and Open Burning of Waste',YYYY);
 idx=strmatch('Waste',c1.subsector_title);
@@ -532,7 +532,7 @@ IND.CH4= [0  0             industry.cem.CH4 0
     0 0  industry.met.CH4 0
     0 0  industry.oth.CH4 0
     0 0                  industry.btsw.CH4 0
-    0 0                  industry.swd.CH4 0 
+    0 0                  industry.swd.CH4 0
     0 0                  industry.wwt.CH4 0 ];
 
 
@@ -541,15 +541,15 @@ IND.N2O= [0  0             industry.cem.N2O 0
     0 0  industry.met.N2O 0
     0 0  industry.oth.N2O 0
     0 0                  industry.btsw.N2O 0
-    0 0                  industry.swd.N2O 0 
+    0 0                  industry.swd.N2O 0
     0 0                  industry.wwt.N2O 0 ];
 
 IND.Fgas= [0  0             industry.cem.Fgas 0
     0 0                  industry.chem.Fgas 0
     0 0  industry.met.Fgas 0
     0 0  industry.oth.Fgas 0
-    0 0                  0 0 
-    0 0                  0 0 
+    0 0                  0 0
+    0 0                  0 0
     0 0                  0 0 ];
 
 
