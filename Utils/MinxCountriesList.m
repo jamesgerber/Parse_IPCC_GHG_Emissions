@@ -19,7 +19,7 @@ if isempty(ISOlist_p)
     
     for j=1:numel(ISOlist_p);
         idx=strmatch(ISOlist_p{j},c.ISO);
-        CountryNameList_p{j}=c.country(idx(1));
+        CountryNameList_p{j}=c.country{idx(1)};
     end
     
 end
