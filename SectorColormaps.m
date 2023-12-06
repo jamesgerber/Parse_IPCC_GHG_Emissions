@@ -11,10 +11,10 @@ switch lower(sector)
         cmap=[243 89 36]/256;
     case {'ind','industry'}
         cmap=[84   126   206]/256;
-    case {'transportation','tran','trans'}
+    case {'transportation','tran','trans','transport'}
         cmap=[47   150   155]/256;
     case {'other energy','other'};
-        cmap=[194   194   194]/256};
+        cmap=[194   194   194]/256;
     otherwise
         error('don''t know this sector')
 end

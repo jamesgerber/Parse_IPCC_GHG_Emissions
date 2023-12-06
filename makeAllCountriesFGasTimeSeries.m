@@ -8,7 +8,7 @@ warning('this code is really slow - not very efficient at all')
 % call a script to get a full list of countries (this corrects an error
 % that James had noticed in late Nov 2023 (viz. that GADM countries don't
 % overlap with Minx countries))
-ISOlist=ParseGHGCountriesList;
+ISOlist=MinxCountriesList;
 
 %ISOlist=ISOlist(1:10)
 % Call AllocateEmissions to get 'rows' and 'cols'.  This is better than

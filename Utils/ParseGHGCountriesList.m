@@ -1,12 +1,22 @@
-function ISOlist=ParseGHGCountriesList;
+function [ISOlist,CountryNameList]=ParseGHGCountriesList;
+% ParseGHGCountriesList - name of countries in Minx Data
+persistent ISOlist_p CountryNameList_p
+
+if isempty(ISOlist_p)
+
 ParseGHGDataConstantsDefaults
+datadir=DataFilesLocation;
+c=readgenericcsv([datadir 'essd_ghg_data_gwp100_datasheet.txt'],1,tab);
 
-geo=load([GADMFilesLocation 'gadm41_level0raster5minVer1.mat'],'gadm0codes');
-ISOlist=geo.gadm0codes;
+ISOlist_p=unique(c.ISO);
 
-ISOlist(end+1)=    {'AIR'};
-ISOlist(end+1)=    {'ANT'};
-ISOlist(end+1)=    {'HKG'};
-ISOlist(end+1)=    {'MAC'};
-ISOlist(end+1)=    {'SCG'};
-ISOlist(end+1)=    {'SEA'};
+for j=1:numel(ISOlist_p);
+    idx=strmatch(ISOlist_p{j},c.ISO);
+    CountryNameList_p{j}=c.country(idx(1));
+end
+
+end
+
+CountryNameList=CountryNameList_p;
+ISOlist=ISOlist_p;
+
