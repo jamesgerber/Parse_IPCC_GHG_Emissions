@@ -31,7 +31,7 @@ ISOlist=MinxCountriesList;
 %%
 yrvect=1970:2019;
 for j=1:numel(ISOlist)
-    ISO=ISOlist{j};
+    ISO=ISOlist{j}
 
     for jyr=1:numel(yrvect);
         YYYY=yrvect(jyr);
