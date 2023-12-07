@@ -5,8 +5,16 @@ function [ISOlist,CountryNameList]=MinxCountriesList(ISO);
 %
 %   ISOlist=MinxCountriesList
 %
+%  [ISOlist,CountryNamelist]=MinxCountriesList;
+%
+%  If you pass in a single ISO code, you'll get out a single country name.
+%
 %   CountryName=MinxCountriesList(ISO)
 %
+% fun times:
+% [a,b]=MinxCountriesList;
+% [a b]
+
 persistent ISOlist_p CountryNameList_p
 
 if isempty(ISOlist_p)
@@ -24,7 +32,7 @@ if isempty(ISOlist_p)
     
 end
 
-CountryNameList=CountryNameList_p;
+CountryNameList=CountryNameList_p(:);
 ISOlist=ISOlist_p;
 
 
