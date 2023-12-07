@@ -1,4 +1,4 @@
-function layer=DESDataGateway(name,YYYY);
+function layer=DESDataGateway(name,YYYY,ISO);
 % DESDataGateway - gateway function to get data for DES explorer
 %
 % return 5minute datasets.
@@ -43,5 +43,53 @@ switch lower(name)
                         
                         
         end
-                
+     
+    case {'gdp'};
+        
+        persistent rawGDPData yearrows
+        if isempty(rawGDPData)
+            rawGDPData=readgenericcsv([DataFilesLocation '/GDP/WorldBank/GDPTransposed.txt'],2,tab,1);
+            yearrows=str2double(rawGDPData.Country_Code);
+        end
+        
+        x=fieldnames(rawGDPData);
+        
+        idx=strmatch(ISO,x);
+        
+        if numel(idx)==0
+            layer=nan*YYYY;
+        else
+            y=str2double(rawGDPData.(ISO));
+            
+            for j=1:numel(YYYY);
+                idx=find(yearrows==YYYY(j));
+                gdpval=y(idx);
+                if isnan(gdpval)
+                    % ok ... find closest value
+                    
+                    for m=1:20% this is horrendously ugly ... expand out from idx until you find a gdp value
+                        wlow=y(idx-1);
+                        whigh=y(min(idx+1,numel(y)));
+                        if isfinite(wlow)
+                            gdpval=wlow;
+                            break
+                        elseif isfinite(whigh)
+                            gdpval=whigh;
+                            break
+                        else
+                            % do nothing
+                        end
+                    end
+                    if m==20
+                        gdpval=nan;
+                    end
+                    
+                end
+                layer(j)=gdpval;
+
+            end
+        end
+        
+        
+        
 end
