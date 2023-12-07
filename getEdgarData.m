@@ -101,7 +101,7 @@ end
 
 idxcountry2006=strmatch(ISO,EdgarEmissions_CH4_IPCC2006.Country_code_A3);
 if numel(idxcountry2006)==0
-    warning(['did not find ' ISO ' in Edgar data']);
+  %  warning(['did not find ' ISO ' in Edgar data']);
     CO2eq=0;
     rawgas=0;
     return
