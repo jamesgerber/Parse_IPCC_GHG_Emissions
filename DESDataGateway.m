@@ -4,7 +4,13 @@ function layer=DESDataGateway(name,YYYY,ISO);
 % return 5minute datasets.
 %
 %Syntax
-%  layer=DESDataGateway('population',2020)
+%  layer=DESDataGateway('population',2020) will return a layer of
+%  population data from ciesin
+%
+%  GDPvect=DESDataGateway('gdp',yrvect,ISO) will return a vector of
+%  GDP data (in constant USD) from World Bank Data
+%
+
 ParseGHGDataConstantsDefaults; % to define DataFilesLocation
 
 DataProductsDir='~/DataProducts/ext/';
