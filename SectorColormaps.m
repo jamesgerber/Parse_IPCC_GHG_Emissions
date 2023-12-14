@@ -16,6 +16,6 @@ switch lower(sector)
     case {'other energy','other'};
         cmap=[194   194   194]/256;
     otherwise
-        error('don''t know this sector')
+        cmap=[0 0 0];
 end
 
