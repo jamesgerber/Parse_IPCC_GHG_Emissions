@@ -14,7 +14,7 @@ ISOlist=MinxCountriesList;
 % Call AllocateEmissions to get 'rows' and 'cols'.  This is better than
 % hard coding here because code won't break if we ever change rows/cols
 % into M.
-[M, rows, cols, A, B, OE, IND, T]=AllocateEmissionsNFIRevG('USA',2019);
+[M, rows, cols, A, B, OE, IND, T]=AllocateEmissionsNFIRevH('USA',2019);
 
 % M is a big matrix ... rows are sectors, cols are gases.  It's all just
 % bookkeeping from here.
@@ -36,7 +36,7 @@ for j=1:numel(ISOlist)
     for jyr=1:numel(yrvect);
         YYYY=yrvect(jyr);
 
-        [M, rows, cols, A, B, OE, IND, T]=AllocateEmissionsNFIRevG(ISO,YYYY);
+        [M, rows, cols, A, B, OE, IND, T]=AllocateEmissionsNFIRevH(ISO,YYYY);
 
         FgasEmissions(jyr,j)=sum(sum(M(:,13:16)));
         TotEmissions(jyr,j)=sum(sum(M(:,:)));

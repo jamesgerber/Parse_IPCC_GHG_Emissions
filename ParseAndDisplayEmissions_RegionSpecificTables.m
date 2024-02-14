@@ -53,7 +53,7 @@ end
 clear LUvect Mvect
 for j=1:numel(ISOlist);
     ISO=ISOlist{j};
-    [M,rows,cols,A,B,OE,IND,T]=AllocateEmissionsNFIRevG(ISO,YYYY);
+    [M,rows,cols,A,B,OE,IND,T]=AllocateEmissionsNFIRevH(ISO,YYYY);
     LULUCF=SpatializeRegionalLULUCF_Emissions(ISO,YYYY);
     if j==1
         Msum=M;

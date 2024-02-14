@@ -2,7 +2,7 @@ function ParseAndDisplayEmissions_WasteTimeSeries(ISOlist,RegionName)
 % ParseAndDisplayEmissions_WasteTimeSeries make a plot of waste time series
 %
 %  this makes a plot of waste time series.  Historically this was written
-%  before AllocateEmissionsNFIRevG which breaks out the waste data into
+%  before AllocateEmissionsNFIRevH which breaks out the waste data into
 %  biological+incineration; wastewater;Incineration.  
 % 
 % so it's not really parsing anymore, just displaying
@@ -57,7 +57,7 @@ for jISO=1:numel(ISOlist)
         % [CO2eqIncineration(jyear),CH4Incineration(jyear)]=getEdgarData(ISO,'CH4','Incineration and Open Burning of Waste',YYYY);
         % [CO2eqSolidWaste(jyear),CH4SolidWaste(jyear)]=getEdgarData(ISO,'CH4','Solid Waste Disposal',YYYY);
 
-        [M,rows,cols,A,B,OE,IND,T]=AllocateEmissionsNFIRevG(ISO,YYYY);
+        [M,rows,cols,A,B,OE,IND,T]=AllocateEmissionsNFIRevH(ISO,YYYY);
 
         irow1=strmatch('industry_burningtreatingsolidwaste',rows);
         irow2=strmatch('industry_solidwastedisposal',rows);

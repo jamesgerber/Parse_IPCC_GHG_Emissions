@@ -22,7 +22,7 @@ CH4WW_percapita_PercentPerYearChange_map=datablank;
 CH4WW_percapita2019=datablank;
 
 
-[M, rows, cols, A, B, OE, IND, T]=AllocateEmissionsNFIRevG('USA',2019);
+[M, rows, cols, A, B, OE, IND, T]=AllocateEmissionsNFIRevH('USA',2019);
 icf=strmatch('otherenergy_coalfugitive',rows);
 iof=strmatch('otherenergy_oilfugitive',rows);
 iburn=strmatch('industry_burningtreatingsolidwaste',rows);
@@ -37,7 +37,7 @@ if makemaps==1
     for j=1:length(ISOlist)
         ISO=ISOlist{j}
         
-        [M, rows, cols, A, B, OE, IND, T]=AllocateEmissionsNFIRevG(ISO,2019);
+        [M, rows, cols, A, B, OE, IND, T]=AllocateEmissionsNFIRevH(ISO,2019);
         
         LULUCF=SpatializeRegionalLULUCF_Emissions(ISO);
         
@@ -91,7 +91,7 @@ yrvect=1999:2019;
     for jyr=1:numel(yrvect);
         YYYY=yrvect(jyr);
         
-        [M, rows, cols, A, B, OE, IND, T]=AllocateEmissionsNFIRevG(ISO,YYYY);
+        [M, rows, cols, A, B, OE, IND, T]=AllocateEmissionsNFIRevH(ISO,YYYY);
         
         LULUCF=SpatializeRegionalLULUCF_Emissions(ISO);
         
@@ -151,7 +151,7 @@ for j=1:256
         YYYY=yrvect(jyr);
         ISO=geo.gadm0codes{j};
         
-        [M, rows, cols, A, B, OE, IND, T]=AllocateEmissionsNFIRevG(ISO,YYYY);
+        [M, rows, cols, A, B, OE, IND, T]=AllocateEmissionsNFIRevH(ISO,YYYY);
         
      %   LULUCF=SpatializeRegionalLULUCF_Emissions(ISO);
         

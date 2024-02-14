@@ -45,7 +45,7 @@ end
 
 for j=1:numel(ISOlist);
      ISO=ISOlist{j}
-    [M,rows,cols,A,B,OE,IND,T]=AllocateEmissionsNFIRevG(ISO,YYYY);
+    [M,rows,cols,A,B,OE,IND,T]=AllocateEmissionsNFIRevH(ISO,YYYY);
      LULUCF=SpatializeRegionalLULUCF_Emissions(ISO);
     if numel(find(isnan(M)))>0
         ISO
