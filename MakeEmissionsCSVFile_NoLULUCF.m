@@ -41,6 +41,9 @@ if isequal(lower(ISOlist),'world');
     ISOlist=MinxCountriesList;
 end
 
+if ischar(ISOlist)
+    ISOlist={ISOlist};
+end
 
 
 for j=1:numel(ISOlist);

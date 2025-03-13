@@ -80,14 +80,9 @@ if isempty(g0);
     g0=getgeo41_g0;
 end
 
-idx=strmatch(ISO,g0.gadm0codes);
-switch ISO
-    case {'AIR','ANT','HKG','MAC','SCG','SEA'}
-        ii=logical(datablank);
-    otherwise
-        
-        ii=(g0.raster0==idx);
-end
+
+    
+
 
 return
 

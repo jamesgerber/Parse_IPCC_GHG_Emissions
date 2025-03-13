@@ -2,6 +2,20 @@ function [M,rows,cols,A,B,OE,IND,T,E]=AllocateEmissionsNFIRevH(ISO,YYYY);
 % AllocateEmissionsNFI "no F***ing indirect"
 %
 % [M,rows,cols,A,B,OE,IND,T,E]=AllocateEmissionsNFIRevH(ISO,YYYY)
+%
+% Helpful syntax:
+% [M,rows,cols]=AllocateEmissionsNFIRevH(MinxCountriesList,2000);
+%
+% if ISO is 'WORLD' then it will use MinxCountriesList
+if nargin==0
+    disp(['need some args in'])
+    help(mfilename)
+    return
+end
+
+if isequal(ISO,'WORLD')
+    ISO=MinxCountriesList;
+end
 
 if iscell(ISO)
     ISOlist=ISO;

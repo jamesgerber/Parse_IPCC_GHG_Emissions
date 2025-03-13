@@ -9,11 +9,14 @@ switch lower(sector)
         cmap=[163 99 174]/256;
     case {'electricity','elec'};
         cmap=[243 89 36]/256;
+        %%% this is from Jon's terraculture slides
+        %%%      cmap=[253 99 24]/255;
+
     case {'ind','industry'}
         cmap=[84   126   206]/256;
     case {'transportation','tran','trans','transport'}
         cmap=[47   150   155]/256;
-    case {'other energy','other'};
+    case {'other energy','other','otherenergy'};
         cmap=[194   194   194]/256;
     otherwise
         cmap=[0 0 0];
