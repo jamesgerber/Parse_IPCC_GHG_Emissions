@@ -31,14 +31,14 @@ tmp=zeros(1,7);
 for j=1:numel(othercountries)
 ISO=othercountries{j};
     
-    [CO2eqBioTreatSW,CH4BioTreatSWvect(j)]=getEdgarData(ISO,'CH4','Biological Treatment of Solid Waste',YYYY);
-    [CO2eqWastewater,CH4Wastewatervect(j)]=getEdgarData(ISO,'CH4','Wastewater Treatment and Discharge',YYYY);
-    [CO2eqSolidWaste,CH4SolidWastevect(j)]=getEdgarData(ISO,'CH4','Solid Waste Disposal',YYYY);
-    [CO2eqIncineration,CH4Incinerationvect(j)]=getEdgarData(ISO,'CH4','Incineration and Open Burning of Waste',YYYY);
-    [CO2eqBioTreatSW,N2OBioTreatSWvect(j)]=getEdgarData(ISO,'N2O','Biological Treatment of Solid Waste',YYYY);
-    [CO2eqWastewater,N2OWastewatervect(j)]=getEdgarData(ISO,'N2O','Wastewater Treatment and Discharge',YYYY);
-    %[CO2eqSolidWaste,N2OSolidWaste]=getEdgarData(ISO,'N2O','Solid Waste Disposal',YYYY);
-    [CO2eqIncineration,N2OIncinerationvect(j)]=getEdgarData(ISO,'N2O','Incineration and Open Burning of Waste',YYYY);
+    [CO2eqBioTreatSW,CH4BioTreatSWvect(j)]=getEdgarData_2024(ISO,'CH4','Biological Treatment of Solid Waste',YYYY);
+    [CO2eqWastewater,CH4Wastewatervect(j)]=getEdgarData_2024(ISO,'CH4','Wastewater Treatment and Discharge',YYYY);
+    [CO2eqSolidWaste,CH4SolidWastevect(j)]=getEdgarData_2024(ISO,'CH4','Solid Waste Disposal',YYYY);
+    [CO2eqIncineration,CH4Incinerationvect(j)]=getEdgarData_2024(ISO,'CH4','Incineration and Open Burning of Waste',YYYY);
+    [CO2eqBioTreatSW,N2OBioTreatSWvect(j)]=getEdgarData_2024(ISO,'N2O','Biological Treatment of Solid Waste',YYYY);
+    [CO2eqWastewater,N2OWastewatervect(j)]=getEdgarData_2024(ISO,'N2O','Wastewater Treatment and Discharge',YYYY);
+    %[CO2eqSolidWaste,N2OSolidWaste]=getEdgarData_2024(ISO,'N2O','Solid Waste Disposal',YYYY);
+    [CO2eqIncineration,N2OIncinerationvect(j)]=getEdgarData_2024(ISO,'N2O','Incineration and Open Burning of Waste',YYYY);
 
 end
 

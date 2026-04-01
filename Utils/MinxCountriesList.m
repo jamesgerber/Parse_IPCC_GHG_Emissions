@@ -99,7 +99,12 @@ return
 ISOlist=MinxCountriesList;
 
 emsum=0;
+cementsum=0;
 for j=1:numel(ISOlist);
     [M,rows,cols,A,B,OE,IND,T,E]=AllocateEmissionsNFIRevG(ISOlist{j},2019);
     emsum=emsum+sum(M(:));
+    cementvect(j)=sum(M(23,:));
 end
+
+
+

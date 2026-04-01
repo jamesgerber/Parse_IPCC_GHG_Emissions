@@ -38,7 +38,7 @@ switch Res
         tmp=ones(2*4320,2*2160);
     case {'3min','.05deg'}
         tmp=ones(7200,3600);
-    case {'30s','30sec'}
+    case {'30s','30sec','1km'}
         tmp=ones(43200,21600);
     case '1min'
         warning('warning:  this is going to be really huge');
