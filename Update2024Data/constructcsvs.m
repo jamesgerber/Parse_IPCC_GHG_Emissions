@@ -5,12 +5,13 @@
 global GWPFLAG
 for GWPFLAG=[100 20]
 
+    % GWPFLAG is a global variable ... 
 
 
     ISOlist=MinxCountriesList;
-    %
-    %ISOlist={'USA'};
-    for YYYY=[1970:1989];%2024];
+
+
+    for YYYY=[1970:2024] % outer limites are 1970 to 2024
         for j=1:numel(ISOlist)
             ISO=ISOlist{j};
             MakeEmissionsCSVFile_updated(ISO,YYYY,['intermediatefiles/csvs/Emissions' ISO '_GWP' int2str(GWPFLAG) '_' num2str(YYYY)  '.csv']);
@@ -25,7 +26,7 @@ for GWPFLAG=[100 20]
     a=readgenericcsv(['intermediatefiles/csvs/Emissions' 'USA' '_GWP100_' '2019.csv']);
 
     % now combine csvs
-    for YYYY=[ 1972:1992];
+    for YYYY=[ 1972:2024];
         YYYYvect=(YYYY-2):(YYYY)
 
         %ISOlist=MinxCountriesList;

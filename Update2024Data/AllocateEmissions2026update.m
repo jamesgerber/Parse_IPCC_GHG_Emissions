@@ -73,6 +73,7 @@ end
 
 YYYYEdgar=YYYY;
 YYYYAllocation=min(YYYY,2019);
+%YYYYAllocation=YYYY;
 %note that YYYYAllocation is hardcoded to be at least 1990 for electricity
 
 InMinxNotEdgarList={
