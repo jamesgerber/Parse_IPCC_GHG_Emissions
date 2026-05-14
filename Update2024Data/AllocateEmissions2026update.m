@@ -31,7 +31,10 @@ if iscell(ISO)
     return;
 end
 
-
+global GWPFLAG
+if isempty(GWPFLAG)
+    GWPFLAG=100;
+end
 
 persistent a b c d ee
 %persistent sshash_chem sshash_metals sshash_nonres sshash_otheren sshash_otherind sshash_othertrans sshash_rail sshash_residential sshash_road
@@ -70,6 +73,7 @@ end
 
 YYYYEdgar=YYYY;
 YYYYAllocation=min(YYYY,2019);
+%note that YYYYAllocation is hardcoded to be at least 1990 for electricity
 
 InMinxNotEdgarList={
   'ASM',    'ATF',    'BVT',    'CCK',    'CXR',    'FSM',    'GUM',    'MHL',    'MNP', ...
@@ -79,7 +83,7 @@ InMinxNotEdgarList={
 
 
 c1=subsetofstructureofvectors(c,find(c.year==YYYYAllocation));
-d1=subsetofstructureofvectors(d,find(d.year==YYYYAllocation));
+d1=subsetofstructureofvectors(d,find(d.year==max(YYYYAllocation,1990)));
 
 c1=subsetofstructureofvectors(c1,strmatch(ISO,c1.ISO));
 d1=subsetofstructureofvectors(d1,strmatch(ISO,d1.ISO));

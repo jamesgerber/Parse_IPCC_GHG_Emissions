@@ -44,7 +44,7 @@ idx = find(strcmp(iso_lookup(:,2), ISO));
 if isempty(idx)
     LUCemissions=0;
 else
-    name = iso_lookup{idx, 1};  % returns 'France'
+    name = iso_lookup{idx, 1};  
 
     y1=aBLUE.(name);
     y2=aOSCAR.(name);

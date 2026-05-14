@@ -238,6 +238,9 @@ end
 
 
 %% is final field the same length as the others?
+
+if j>1
+
 ThisName=makesafestring(FieldNameStructure.Vector{j});
 PrevName=makesafestring(FieldNameStructure.Vector{j-1});
 
@@ -265,7 +268,7 @@ if ~isequal(length(getfield(DS,ThisName)),length(getfield(DS,PrevName)))
         end
         
         DS=setfield(DS,ThisName,lastfield);
-        
+end
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
