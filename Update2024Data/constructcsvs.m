@@ -1,9 +1,9 @@
-%function constructcsvs
-% % %
+% constructcsvs.m
+% Helper script that works through
 
 
 global GWPFLAG
-for GWPFLAG=[100 20]
+for GWPFLAG=[20]  % run for 100 first, then 20
 
     % GWPFLAG is a global variable ... 
 
@@ -11,7 +11,7 @@ for GWPFLAG=[100 20]
     ISOlist=MinxCountriesList;
 
 
-    for YYYY=[1970:2024] % outer limites are 1970 to 2024
+    for YYYY=[1970:2024] % outer limits are 1970 to 2024
         for j=1:numel(ISOlist)
             ISO=ISOlist{j};
             MakeEmissionsCSVFile_updated(ISO,YYYY,['intermediatefiles/csvs/Emissions' ISO '_GWP' int2str(GWPFLAG) '_' num2str(YYYY)  '.csv']);
@@ -19,14 +19,11 @@ for GWPFLAG=[100 20]
     end
 
 
-    %crash
-
-
     % grab this - will make writing out csv easier later
     a=readgenericcsv(['intermediatefiles/csvs/Emissions' 'USA' '_GWP100_' '2019.csv']);
 
     % now combine csvs
-    for YYYY=[ 1972:2024];
+    for YYYY=[ 1972:2024];  % performing 3 year average -> 1972
         YYYYvect=(YYYY-2):(YYYY)
 
         %ISOlist=MinxCountriesList;
@@ -37,13 +34,11 @@ for GWPFLAG=[100 20]
             clear X
             for jyr=1:numel(YYYYvect)
                 X(:,:,jyr)=readmatrix(['intermediatefiles/csvs/Emissions' ISO '_GWP' int2str(GWPFLAG) '_' num2str(YYYYvect(jyr)) '.csv']);
-
             end
             Xlatestyear=detrendaverage(X,numel(YYYYvect));
 
-            %keyboard
 
-            filename=['individualcsvs/ThreeYearAvg' ISO '_GWP' int2str(GWPFLAG) '_' int2str(YYYY) '.csv'];
+            filename=['csvs/individualcsvs/ThreeYearAvg' ISO '_GWP' int2str(GWPFLAG) '_' int2str(YYYY) '.csv'];
             clear WriteStruct
             WriteStruct.Rows=a.Rows;;
 
@@ -55,19 +50,18 @@ for GWPFLAG=[100 20]
             struct2csv(filename,WriteStruct);
         end
 
-        %crash
         % now add up the individual ones
 
         clear X
         for j=1:numel(ISOlist)
             ISO=ISOlist{j};
-            filename=['individualcsvs/ThreeYearAvg' ISO '_GWP' int2str(GWPFLAG) '_' int2str(YYYY) '.csv'];
+            filename=['csvs/individualcsvs/ThreeYearAvg' ISO '_GWP' int2str(GWPFLAG) '_' int2str(YYYY) '.csv'];
             X(:,:,j)=readmatrix(filename);
         end
 
         Xsum=nansum(X,3)
 
-        filename=['AllCountryEmissions_2026Update_ThreeYearAvg_to_' int2str(YYYY) '_GWP' int2str(GWPFLAG) '.csv'];
+        filename=['csvs/AllCountryEmissions_2026Update_ThreeYearAvg_to_' int2str(YYYY) '_GWP' int2str(GWPFLAG) '.csv'];
         clear WriteStruct
         WriteStruct.Rows=a.Rows;;
 

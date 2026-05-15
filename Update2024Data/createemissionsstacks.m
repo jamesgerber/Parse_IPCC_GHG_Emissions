@@ -1,7 +1,7 @@
 
 ISOlist=MinxCountriesList;
 yrvect=1972:2024;
-for GWPFLAG=[100 20];
+for GWPFLAG=[100];
 
 
 for j=1:numel(ISOlist);

@@ -61,7 +61,12 @@ switch sector
         afolu=X;  % makes for more readable code
 
         % biomass burning
-        % %  CO2 - dont include this
+        % %  CO2 - dont need to include this (just propagating 0s but
+        % leaving it in for consistency)
+        idxnew=strmatch('Emissions from biomass burning',E10CO2_2006.ipcc_code_2006_for_standard_report_name);
+        idxold=strmatch('Emissions from biomass burning',E7CO2_2006.ipcc_code_2006_for_standard_report_name);
+        afoluNew.bb.CO2=afolu.bb.CO2.*E10CO2_2006.(ValueColNew)(idxnew)./E7CO2_2006.(ValueColOld)(idxold);
+
         % %  CH4
         idxnew=strmatch('Emissions from biomass burning',E10CH4_2006.ipcc_code_2006_for_standard_report_name);
         idxold=strmatch('Emissions from biomass burning',E7CH4_2006.ipcc_code_2006_for_standard_report_name);
@@ -78,7 +83,15 @@ switch sector
         idxold=strmatch('Other direct soil emissions',E7CO2_1996.ipcc_code_1996_for_standard_report_name);
         afoluNew.ms.CO2=afolu.ms.CO2.*E10CO2_1996.(ValueColNew)(idxnew)./E7CO2_1996.(ValueColOld)(idxold);
 
+        if isinf(afoluNew.ms.CO2)
+            afoluNew.ms.CO2=afolu.ms.CO2;
+        end
+
         % % CH4 - no hay
+
+        idxnew=strmatch('Other direct soil emissions',E10CH4_1996.ipcc_code_1996_for_standard_report_name);
+        idxold=strmatch('Other direct soil emissions',E7CH4_1996.ipcc_code_1996_for_standard_report_name);
+        afoluNew.ms.CH4=afolu.ms.CH4.*E10CH4_1996.(ValueColNew)(idxnew)./E7CH4_1996.(ValueColOld)(idxold);
 
         % % N2O - Direct soil emissions
         idxnew=strmatch('Direct soil emissions',E10N2O_1996.ipcc_code_1996_for_standard_report_name);
@@ -111,7 +124,7 @@ switch sector
         % rice cultivation
         idxnew=strmatch('Rice cultivation',E10CH4_2006.ipcc_code_2006_for_standard_report_name);
         idxold=strmatch('Rice cultivation',E7CH4_2006.ipcc_code_2006_for_standard_report_name);
-        afoluNew.ef.CH4=afolu.ef.CH4.*E10CH4_2006.(ValueColNew)(idxnew)./E7CH4_2006.(ValueColOld)(idxold);
+        afoluNew.rc.CH4=afolu.rc.CH4.*E10CH4_2006.(ValueColNew)(idxnew)./E7CH4_2006.(ValueColOld)(idxold);
 
         % synthetic fertilizer
 
@@ -124,14 +137,32 @@ switch sector
             (E10N2O_2006.(ValueColNew)(idxnew)+E10N2O_2006.(ValueColNew)(idxnew2))./...
             (E7N2O_2006.(ValueColOld)(idxold)+E7N2O_2006.(ValueColOld)(idxold2));
 
+        afoluNew.sf.CH4=afolu.sf.CH4; % no need to scale this it's zero
 
-        Xout=afolu;
+        if afolu.sf.CH4 ~= 0
+            keyboard
+        end
+
+        afoluNew.ef.N2O=afolu.ef.N2O; % no need to scale this it's zero
+
+        if afolu.ef.N2O ~= 0
+            keyboard
+        end
+
+        afoluNew.rc.N2O=afolu.rc.N2O; % no need to scale this it's zero
+
+        if afolu.rc.N2O ~= 0
+            keyboard
+        end
+
+
+        afoluNew.sf.Fgas=[];
+
+
+        Xout=afoluNew;
 
     case 'buildings'
-
-
         buildings=X;
-
 
         % now CO2
         idxnew=strmatch('Residential and other sectors',E10CO2_1996.ipcc_code_1996_for_standard_report_name);
@@ -205,7 +236,7 @@ switch sector
                 buildingsNew.nc.Fgas=buildings.nc.Fgas.*d10agg.tonsco2eq(idxNew)./d7agg.tonsco2eq(idxOld);
             end
         else
-          % disp(['year prior to 1990.  Method breaks down.  Swap in data from NFIRevH (Minx)'])
+            % disp(['year prior to 1990.  Method breaks down.  Swap in data from NFIRevH (Minx)'])
 
             [M,rows,cols,A,B,OE,IND,T]=AllocateEmissionsNFIRevH(ISO,YYYY);
 
@@ -305,6 +336,10 @@ switch sector
         idxold=strmatch('Fugitive emissions from solid fuels',E7N2O_1996.ipcc_code_1996_for_standard_report_name);
         otherenergyNew.cmf.N2O=otherenergy.cmf.N2O.*E10N2O_1996.(ValueColNew)(idxnew)./E7N2O_1996.(ValueColOld)(idxold);
 
+        if isinf(otherenergyNew.cmf.N2O)
+            otherenergyNew.cmf.N2O=otherenergy.cmf.N2O;
+        end
+
         idxnew=strmatch('Fugitive emissions from oil and gas',E10N2O_1996.ipcc_code_1996_for_standard_report_name);
         idxold=strmatch('Fugitive emissions from oil and gas',E7N2O_1996.ipcc_code_1996_for_standard_report_name);
         otherenergyNew.ogf.N2O=otherenergy.ogf.N2O.*E10N2O_1996.(ValueColNew)(idxnew)./E7N2O_1996.(ValueColOld)(idxold);
@@ -314,12 +349,18 @@ switch sector
         end
 
 
-        idxnew=strmatch('1A1bc',E10CO2_1996.ipcc_code_1996_for_standard_report);
-        idxold=strmatch('1A1bc',E7CO2_1996.ipcc_code_1996_for_standard_report);
+        idxnew=strmatch('1A1bc',E10N2O_1996.ipcc_code_1996_for_standard_report);
+        idxold=strmatch('1A1bc',E7N2O_1996.ipcc_code_1996_for_standard_report);
         otherenergyNew.oth.N2O=otherenergy.oth.N2O.*E10N2O_1996.(ValueColNew)(idxnew)./E7N2O_1996.(ValueColOld)(idxold);
 
-        idxnew=strmatch('1A1bc',E10CO2_1996.ipcc_code_1996_for_standard_report);
-        idxold=strmatch('1A1bc',E7CO2_1996.ipcc_code_1996_for_standard_report);
+
+        if isinf(otherenergyNew.oth.N2O)
+            otherenergyNew.oth.N2O=otherenergy.oth.N2O;
+        end
+
+        % also scale here ('other Energy Industries') nothing corresponds to
+        % petroleum refining.
+
         otherenergyNew.prf.N2O=otherenergy.prf.N2O.*E10N2O_1996.(ValueColNew)(idxnew)./E7N2O_1996.(ValueColOld)(idxold);
 
         % FGgas
@@ -463,13 +504,17 @@ switch sector
         idxold=strmatch('Production of chemicals',E7N2O_1996.ipcc_code_1996_for_standard_report_name);
         industryNew.chem.N2O=industry.chem.N2O.*E10N2O_1996.(ValueColNew)(idxnew)./E7N2O_1996.(ValueColOld)(idxold);
 
+        % seems like a bug (since it's used nearby) but there's nothing
+        % specific for metals
         idxnew=strmatch('Manufacturing Industries and Construction',E10N2O_1996.ipcc_code_1996_for_standard_report_name);
         idxold=strmatch('Manufacturing Industries and Construction',E7N2O_1996.ipcc_code_1996_for_standard_report_name);
         industryNew.met.N2O=industry.met.N2O.*E10N2O_1996.(ValueColNew)(idxnew)./E7N2O_1996.(ValueColOld)(idxold);
 
         % note .... Other includes 1.A.2 from Minx and Edgar subsectors
         % (revH spreadsheet)
-        idxnew=strmatch('Manufacturing Industries and Construction',E10N2O_1996.ipcc_code_1996_for_standard_report_name);
+        % seems like a bug (since it's used nearby) but there's nothing
+        % specific for metals
+        %        idxnew=strmatch('Manufacturing Industries and Construction',E10N2O_1996.ipcc_code_1996_for_standard_report_name);
         idxold=strmatch('Manufacturing Industries and Construction',E7N2O_1996.ipcc_code_1996_for_standard_report_name);
         industryNew.oth.N2O=industry.oth.N2O.*E10N2O_1996.(ValueColNew)(idxnew)./E7N2O_1996.(ValueColOld)(idxold);
 
@@ -629,7 +674,9 @@ switch sector
         if isinf(transportNew.ra.CH4)
             transportNew.ra.CH4=transport.ra.CH4;
         end
-
+        if isinf(transportNew.ro.CH4)
+            transportNew.ro.CH4=transport.ro.CH4;
+        end
 
 
         % N2O

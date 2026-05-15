@@ -13,6 +13,8 @@ for j=1:numel(a)
         is.(a{j})=0;
     elseif isnan(thisfield)
         is.(a{j})=0;
+    elseif isinf(thisfield)
+        keyboard
     end
     
 end

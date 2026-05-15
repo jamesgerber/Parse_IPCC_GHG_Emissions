@@ -263,12 +263,14 @@ afolu.sf.Fgas=c1.Fgas(idx);
 YYYYold=YYYYAllocation;  % base the allocation on this
 YYYYnew=YYYYEdgar;  % new edgar from here 
 
+afoluold=afolu;
 afolu=ScaleWithLatestEDGAR(afolu,'afolu',ISO,YYYYold,YYYYnew);
 
 % ScaleWithFAOEmissions;
 % [FAOStatEmissions,verstring]=ReturnFAOStatEmissions;
 
 afolu=replaceemptywith0(afolu);
+afoluold=replaceemptywith0(afoluold);
 
 
 A.CO2=[0 0 0 afolu.bb.CO2
@@ -292,12 +294,13 @@ A.N2O=[ 0 0 0 afolu.bb.N2O
     0 0 0 afolu.rc.N2O
     0 0 0 afolu.sf.N2O];
 
-A.Fgas=[ 0 0 0 afolu.bb.Fgas
-    0 0 0 afolu.ms.Fgas
-    0 0 0 afolu.mm.Fgas
-    0 0 0 afolu.ef.Fgas
-    0 0 0 afolu.rc.Fgas
-    0 0 0 afolu.sf.Fgas];
+% this keeps code from crashing - but there is no Fgas in afolu
+A.Fgas=[ 0 0 0 afoluold.bb.Fgas
+    0 0 0 afoluold.ms.Fgas
+    0 0 0 afoluold.mm.Fgas
+    0 0 0 afoluold.ef.Fgas
+    0 0 0 afoluold.rc.Fgas
+    0 0 0 afoluold.sf.Fgas];
 
 
 
